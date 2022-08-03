@@ -59,7 +59,24 @@ class Game():
             print('\nwell done!!! you got it!!, you guessed the correct phrase: \n')
             self.active_phrase.display(self.guesses)
 
+        while ValueError:
+            try:
 
+                play_again = input('would you like to play again[y/n]? ').lower()
+
+                if play_again != 'y' and play_again != 'n':
+                    raise ValueError("Please enter 'y' (yes) or 'n' (no)")
+
+            except ValueError as err:
+                print ('{}'.format(err))
+
+            else:
+                if play_again == 'y':
+                    self.restart_game()
+                else:
+                    print("""Alright as you wish...
+                GAME OVER""")
+                break
 
 
 
@@ -83,4 +100,16 @@ class Game():
             else:
 
                 return answer
-        
+
+
+    def restart_game(self):
+
+        game = Game()
+
+        game.create_phrases()
+
+        game.get_random_phrase()
+
+        game.start()
+
+               
