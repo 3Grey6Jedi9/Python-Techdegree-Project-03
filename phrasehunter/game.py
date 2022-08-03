@@ -1,5 +1,6 @@
 from phrasehunter import phrase
 import random
+import string
 
 class Game():
 
@@ -64,7 +65,22 @@ class Game():
 
     def get_guess(self):
 
-        answer = input('Guess a letter: ')
+        while ValueError:
 
-        return answer
+            try:
+                answer = input('Guess a letter: ')
+
+
+                if (set(answer) <= set(string.ascii_lowercase)) == False:
+                    raise ValueError('You must enter only a letter, try again please')
+                elif len(list(answer)) > 1:
+                    raise ValueError('You must enter only a letter, try again please')
+
+            except ValueError as err:
+
+                print('{}'.format(err))
+
+            else:
+
+                return answer
         
