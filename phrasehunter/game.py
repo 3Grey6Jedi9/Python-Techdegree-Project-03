@@ -1,1 +1,70 @@
-# Create your Game class logic in here.
+from phrasehunter import phrase
+import random
+
+class Game():
+
+    def __init__(self):
+
+        self.missed = 0
+        self.phrases = []
+        self.active_phrase = None
+        self.guesses = []
+
+    def create_phrases(self):
+
+        a = phrase.Phrase('May the force be with you')
+        b = phrase.Phrase('Darth is back')
+        c = phrase.Phrase('It is the Matrix')
+        d = phrase.Phrase('Hacking Time')
+        e = phrase.Phrase('If you read this you are pretty cool')
+        self.phrases = [a,b,c,d,e]
+
+    def get_random_phrase(self):
+
+        self.active_phrase = random.choice(self.phrases)
+
+        return self.active_phrase
+
+    def welcome(self):
+        print("""   *** ----------------------------------------------- ***
+
+   WELCOME LADIES AND GENTLEMEN TO PHRAAAAASE HUNTEEEER!!!
+
+   -------------------------------------------------------""")
+
+    def start(self):
+
+        self.welcome()
+        while self.missed < 5 and self.active_phrase.check_complete(self.guesses) == False:
+            print("Number missed: {}".format(self.missed))
+            self.active_phrase.display(self.guesses)
+            user_guess = self.get_guess()
+            self.guesses.append(user_guess)
+            self.active_phrase.check_guess(user_guess)
+            if self.active_phrase.check_guess(user_guess):
+                print("YAY")
+            if not self.active_phrase.check_guess(user_guess):
+                self.missed += 1
+
+        self.game_over()
+
+
+    def game_over(self):
+
+        if self.missed >= 5:
+            print("\nI'm sorry you've missed too many letters\n")
+            self.active_phrase.display(self.guesses)
+        else:
+            print('\nwell done!!! you got it!!, you guessed the correct phrase: \n')
+            self.active_phrase.display(self.guesses)
+
+
+
+
+
+    def get_guess(self):
+
+        answer = input('Guess a letter: ')
+
+        return answer
+        
