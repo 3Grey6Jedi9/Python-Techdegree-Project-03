@@ -85,7 +85,7 @@ class Game():
         while ValueError:
 
             try:
-                answer = input('Guess a letter: ')
+                answer = input('Guess a letter: ').lower()
 
 
                 if (set(answer) <= set(string.ascii_lowercase)) == False:
@@ -111,5 +111,3 @@ class Game():
         game.get_random_phrase()
 
         game.start()
-
-               
